@@ -1,0 +1,423 @@
+---
+title: "_Introduction to R_"
+subtitle: '_ICCWPMBB 2023_'
+author: "Dahrii Paul"
+date: "2023-01-24"
+output:
+  word_document: default
+  html_document: default
+---
+# _R_
+* R is a programming and statistical language for analytical purposes
+* It is also one of the most popular tools used for data visualization
+* It is simple and easy to learn, read & write
+* Free and open source
+
+## _1. Installation_ 
+* Download R: <https://cran.r-project.org/bin/windows/base/>
+* Download Rstudio: <https://www.rstudio.com/>
+* R cloud: <https://rstudio.cloud/>
+
+## _2. Variables in R_
+* Variables are reserved memory location to store values.
+  + i.e When you create a variable you reserved some space in memory
+  
+![](D:/1_obj/2_R_datasets 2023/R_Basic/Image/1.png)
+```{r}
+x = 25;x
+```
+```{r}
+y <- "Hello";y
+```
+
+---
+## _3. Operators in R_
+
+**R-Manuals link:** <https://cran.r-project.org/doc/manuals/>
+
+**a). Assignment Operators**
+
+Operators||Example|
+---------|--|-------|------
+Right assignment| = | x = 5
+| |<- |x <- 5 
+| |<<-|x <<- 5
+Left assignment| -> | 3 -> y
+| | ->>| 3 ->> y
+
+_Examples_
+```{r}
+x = 5
+x <- 5
+x <<- 5
+x <- x + 3 
+3 -> y
+3 ->> y
+```
+
+**b). Arithmetic Operators**
+
+Operators||Example|
+---------|--|-------|------
+|||input|return
+Addition | + | 2 + 3| 5
+Subtraction | - | 5 - 2|3
+Multiplication| * |  3 * 4|12 
+Division| / | 6/2|3
+Exponentiation | ^ | 2^3|8
+Integer division |%/%| 7 %/% 2 |3
+Modulus| %% |7 %% 2|1
+
+_Example_
+```{r}
+a <- 2
+b <- 3
+c <- a + b # c will return 5
+d <- a - b # d will return -1
+e <- a * b # e will return 6
+f <- a / b # f will return 0.66667
+g <- a^b  # g will return 8
+h <- 7 %/% 2 # h will return 3
+i <- 7 %% 2 # i will return 1
+```
+
+**c). Relational Operators**
+
+Operators||Example|
+---------|--|-------|------
+|||input|return
+less than |<|2<3|TRUE
+greater than|>|2>3|FALSE
+greater than or equal to|>=|2>=3|FALSE
+less than or equal to | <= |2<=3|TRUE
+equal to |==|2==2|TRUE
+not equal to|!=|2!=2|TRUE
+
+**d). Logical Operators**
+
+Operators|
+---------|--
+And|&
+Or|
+Not|! 
+
+_Example '&'_
+```{r}
+a <- 5
+b <- 10
+ifelse(a > 3 & b < 15,
+       "Both conditions are true", "Either condition is false") 
+```
+
+_Example '|'_
+```{r}
+a <- 5
+b <- 10
+ifelse(a < 3 | b > 15,
+       "Either conditions are true", "Both condition are false") 
+```
+_Example '!'_
+```{r}
+a <- 5
+b <- 10
+ifelse(!(a > 3 & b < 15),"Either condition is false", "Both conditions are true") 
+```
+
+**e). Special Operators**
+
+Operators||Example
+---------|--|---
+Help|?| ?vector
+Sequence|:| x=1:3
+Matching|%in%|x=1:3;y=2;y%in%x 
+List subset|$|
+
+## _4. Data Types_
+
+a) **Vectors**
+      + A vector is a sequence of data elements of the same basic type
+      + It can contain elements of different data types, such as numeric, character, or logical values
+
+_Create a numeric vector_
+```{r}
+# vector_name <- c(list of values separated by comma)
+v1<-c(1,2,3,4,5,6)
+v1
+```
+```{r}
+#vector_name<-c(range)
+v2<-c(5:11)
+v2
+```
+_Create a string vector_
+```{r}
+v3 <- c("A","A","G","T","C","G")
+v3
+#mix vector type
+v_mix <- c("new",1,2,3,"four")
+v_mix 
+```
+
+```{r}
+typeof(v1)
+typeof(v3)
+typeof(v_mix)
+```
+_Create an integer vector_
+```{r}
+v4<-c(8L,16L,64L,128L)
+v4
+```
+
+b) **Factors**
+    +  Factor is a data structure which are used to categorize the data and store it as levels
+    + Can store both integers and strings
+
+```{r}
+v3
+v5 <- as.factor(v3) 
+v5
+class(v5)
+```
+
+c) **Array**
+    + A multi-dimensional data structure that can store data in more than two dimensions
+    + Arrays hold multidimensional rectangular data
+    + “Rectangular” means that each row is the same length, and likewise for each column and other dimensions
+   + Arrays can store only values having similar kinds of data, i.e. variables / elements having similar data type
+
+_Create an Array 1-D_
+```{r}
+array_1<-array(c(v1))
+array_1
+class(array_1)
+```
+
+_Create an Array 2-D_
+```{r}
+array_2<-array(1:12,c(4,3))
+array_2
+```
+
+_Create multiple-D array_
+```{r}
+array_multi<- array(1:24,c(3,4,2))
+array_multi
+```
+
+d) **Matrices**
+    + They are 2-dimensional data structures arranged in a rectangular layout
+    + Can have only homogeneous element type
+
+```{r}
+length(v1)
+#Copy the vector
+mat1 <- v1
+dim(mat1) <- c(3,2)
+mat1
+class(mat1)
+dim(mat1)
+
+mat2 <- cbind(v1,v2)
+mat2
+mat3 <- rbind(v1,v2)
+mat3
+```
+
+_Create a matrix using 'matrix' function_
+```{r}
+mat4 <-  matrix(c(v1, v2), nrow = 6, ncol = 2)
+mat4
+
+# Create a matrix – by range
+mat5 <- matrix(c(1:5), nrow = 4, ncol = 4)
+mat5
+mat5 <- matrix(c(1:5), nrow = 4, byrow = TRUE)
+mat5
+#
+```
+
+
+e) **Lists**
+    + Objects which contain elements of different types such as strings, numbers, vectors or another list inside under one name
+
+```{r}
+ls1 <- list(v1,v2,v3,v4,array_1,array_2,array_multi,mat1,mat2,mat3,mat5)
+ls1[[3]]
+ls1[[6]][2,2]
+```
+f) **Data Frame**
+    + A data frame is a table or a two-dimensional array-like structure in which each column contains values of one variable and each row contains one set of values from each column
+    + **_Characteristics of a data frame_**
+        + The column names should be non-empty
+        + The row names should be unique
+        + The data stored in a data frame can be of numeric, factor or character type
+        + Each column should contain same number of data items
+
+```{r}
+dim(mat4);length(v3)
+df1 <-data.frame(mat4,v3)
+df1
+colnames(df1)[1:3] <- c("var1","var2","DNA")
+colnames(df1)
+names(df1)[1] <- "col1"
+colnames(df1)
+```
+    
+## _4. Data Wrangling_
+
+```{r}
+#install.packages("MASS")
+library(MASS)
+data(package = "MASS")
+```
+
+_Load the data_
+```{r}
+data(cats)
+head(cats)
+tail(cats)
+dim(cats)
+str(cats)
+summary(cats)
+```
+_Select subset_
+```{r}
+cats[,1]
+cats$Sex
+cats$Sex[1]
+```
+
+```{r}
+males <- subset(cats, cats$Sex == "M")
+females <- subset(cats, cats$Sex == "F")
+summary(males)
+summary(females)
+sd(males$Hwt)
+```
+
+```{r}
+cats1 <-cats
+cats1$Sex <- as.character(cats1$Sex)
+str(cats1)
+cats1$Sex[cats1$Sex == "F"] = 1
+cats1$Sex[cats1$Sex == "M"] = 2
+table(cats$Sex)
+```
+
+UCI Machine Learning Repository **"Census Income"** [link](https://archive.ics.uci.edu/ml/datasets/adult)
+
+[Data link github]("https://raw.githubusercontent.com/Dahrii-Paul/R_Basic/d1f0be2d9bc12bfd1df3093723db9c40f8865a78/adult.csv")
+
+```{r}
+#install.packages("dplyr")
+library(dplyr)
+df <- read.csv("https://raw.githubusercontent.com/Dahrii-Paul/R_Basic/d1f0be2d9bc12bfd1df3093723db9c40f8865a78/adult.csv")
+head(df,2)
+dim(df)
+```
+
+a) _**'filter()'**_ function
+    + The _filter()_ function is used to subset a data frame, retaining all rows that satisfy your conditions i.e based on a logical condition 
+    + It is part of the _'dplyr'_ package
+```{r}
+colnames(df)
+df$native.country <- as.factor(df$native.country)
+levels(df$native.country)
+filter(df, native.country %in% "Scotland")
+filter(df,native.country %in% c("Scotland","Honduras"))
+filter(df,native.country %in% c("Scotland","Honduras"), hours.per.week > 50 )
+```
+
+b) **_'select()'_** function
+      + The _select()_ function in R is used to pick specific variables or features of a DataFrame
+      +  It is part of the _'dplyr'_ package
+      + _select(data, column1, column2, ...)_
+      + _select(data, -column1, -column2, ...)_
+```{r}
+dplyr::select(df, age, income)
+dplyr::select(df, -age, -income)
+```
+This error occur because 'dplyr' and 'MASS' packages have a naming conflict i.e. _select() function_
+
+```{r}
+detach("package:MASS", unload = TRUE)
+select(df, age, income)
+```
+
+c) **Pipe operator %>%**
+    +  Pipe operator _%>%_ is a special operator commonly used in _'dplyr package'_, which allow multiple sequence of operations _(function/argument)_ on a data frame
+    + **syntax** _data %>% function1() %>% function2() %>% function3() %>% argument_
+
+```{r}
+df %>% 
+  filter(native.country %in% c("Scotland","Honduras"), sex == "Male", hours.per.week > 50) %>% 
+  select(age, native.country, sex, hours.per.week)
+```
+
+**Summary**
+```{r}
+df %>%
+  select(-workclass, -education, -occupation, -marital.status, -relationship,-race,-sex, -native.country, -income) %>%
+  summarise_all(list(mn=mean, stdev=sd))
+```
+
+**Group Level**
+```{r}
+df %>%
+  select(age, race, sex, hours.per.week) %>%
+  group_by(race)%>%
+  summarise(sampSz=n(), Avg =mean(hours.per.week), stDev = sd(hours.per.week))
+```
+
+**Sub-setting data population sample size**
+```{r}
+df2 <-df %>%
+  select(age, native.country, sex, hours.per.week) %>%
+  group_by(native.country)%>%
+  mutate(samplSz=n())%>%
+  filter(samplSz >50) %>%
+  ungroup()
+df2
+```
+
+## _5. Data Visualization_
+
+scatter plot
+```{r}
+library(MASS)
+data(cats)
+males <- subset(cats, cats$Sex == "M")
+females <- subset(cats, cats$Sex == "F")
+
+plot(males$Bwt,males$Hwt, 
+     pch = 8, 
+     xlab = "Bwt", ylab = "Hwt",
+     col = "green", main = "scatter plot", las =0)
+points(females$Bwt,females$Hwt, 
+       pch = 8, 
+       xlab = "Bwt", ylab = "Hwt",
+       col = "blue", main = "scatter plot", las =0)
+malesReg <- lm(Hwt ~ Bwt ,data = males)
+abline(malesReg, col = "red" , lwd = 2)
+femaleReg <- lm(Hwt ~ Bwt,data = females)
+abline(femaleReg, col = "black",lwd =2)
+legend("bottomright",legend = c("Males cats","Female cats"), 
+       pch = c(8,8), col = c("green","blue"))
+```
+_Identify point using name_
+```{r}
+
+data(mammals)
+plot(mammals$body,mammals$brain , 
+     pch =  16, 
+     col = "blue", 
+     las = 0, 
+     xlab = "body weight in Kg",ylab = "brain weight in gm")
+#identify(mammals$body,mammals$brain, labels = rownames(mammals))
+```
+```{r}
+boxplot(cats$Bwt,cats$Hwt, col = "pink", ylab = "residues", main = "box plot")
+```
+
+
